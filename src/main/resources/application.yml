@@ -1,6 +1,6 @@
 # Project start port.
 server:
-  port: 80
+  port: 8083
 
 # Project custom properties.
 project:

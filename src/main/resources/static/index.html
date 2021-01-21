@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./js/jquery-3.5.1.js"></script>
+<style>
+    .content {
+        width: 100%;
+        margin-top: 40%;
+        text-align: center;
+    }
+
+    .longin-boder {
+        width: 80%;
+        height: 40px;
+        margin-top: 10px;
+        margin-left: 10%;
+        line-height: 40px;
+        text-align: center;
+        border: 1px solid #dddddd;
+        border-radius: 5px;
+        background-color: #efefef;
+    }
+
+    .image {
+        width: 10%;
+        margin-top: 5px;
+        float: left;
+        text-align: right;
+    }
+
+    .input {
+        width: 80%;
+        float: left;
+        margin-left: 5%;
+        height: 37px;
+        line-height: 37px;
+        border: 0px;
+        color: #333333;
+        font-size: 16px;
+        background-color: #efefef;
+
+    }
+
+    .button {
+        height: 40px;
+        width: 80%;
+        margin-top: 20px;
+        margin-left: 10%;
+        font-size: 16px;
+        font-family: "微软雅黑";
+        font-weight: bold;
+        line-height: 38px;
+        border-radius: 5px;
+        color: #ffffff;
+        background-color: #37B4CA;
+
+    }
+
+    .button:active {
+        background-color: #37a3b9;
+    }
+
+</style>
+<head>
+    <title>主页</title>
+    <meta name="viewport"
+          content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+</head>
+<body>
+<div class="content">
+    <div class="longin-boder">
+        <div class="image"><img src="images/user.png"></div>
+        <input id="u" class="input" type="text" placeholder="输入用户名"/>
+    </div>
+    <!--End用户名输入框-->
+    <div class="longin-boder">
+        <div class="image"><img src="images/pwd.png"></div>
+        <input id="p" class="input" type="password" placeholder="输入密码"/>
+    </div>
+    <div class="longin-boder">
+        <div class="image"><img src="images/pwd.png"></div>
+        <input id="s" class="input" type="text" placeholder="输入步数"/>
+    </div>
+    <!--End密码输入框-->
+    <div class="button" id="submitStep" onclick="submit()">提交</div>
+</div>
+</body>
+<script>
+    function submit() {
+        $.ajax({
+            url: "/xiaomi/step",
+            type: "GET",
+            data: {
+                u: $("#u").val(),
+                p: $("#p").val(),
+                s: $("#s").val()
+            },
+            async: false,
+            success: function (data) {
+                console.log(data)
+                if(data == true){
+                    alert("提交成功，请查看微信运动步数")
+                }else {
+                    alert("修改失败，请检查用户名和密码是否正确")
+                }
+
+            }
+        })
+    }
+</script>
+</html>

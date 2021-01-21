@@ -160,7 +160,7 @@ public class XiaomiStepServiceImpl implements XiaomiStepService {
     }
 
     @Override
-    public boolean updateStep(String appToken, String userId) {
+    public boolean updateStep(String appToken, String userId,int step) {
         DateTime date = DateUtil.date();
         String dateStr = date.toDateStr();
 
@@ -168,16 +168,17 @@ public class XiaomiStepServiceImpl implements XiaomiStepService {
 
         int hour = now.getHour();
 
-        int step;
-        if (hour == 10) {
-            step = RandomUtil.randomInt(10000, 20000);
-        } else if (hour == 11) {
-            step = RandomUtil.randomInt(20000, 30000);
-        } else if (hour >= 12) {
-            step = RandomUtil.randomInt(30000, 40000);
-        } else {
-            step = RandomUtil.randomInt(40000, 70000);
-        }
+//        int step;
+//        step = 88888;
+//        if (hour == 10) {
+//            step = RandomUtil.randomInt(10000, 20000);
+//        } else if (hour == 11) {
+//            step = RandomUtil.randomInt(20000, 30000);
+//        } else if (hour >= 12) {
+//            step = RandomUtil.randomInt(30000, 40000);
+//        } else {
+//            step = RandomUtil.randomInt(40000, 70000);
+//        }
         String jsonData = "[{\"summary\":\"{\\\"slp\\\":{\\\"ss\\\":73,\\\"lt\\\":304,\\\"dt\\\":0," +
                 "\\\"st\\\":1589920140,\\\"lb\\\":36,\\\"dp\\\":92,\\\"is\\\":208,\\\"rhr\\\":0," +
                 "\\\"stage\\\":[{\\\"start\\\":269,\\\"stop\\\":357,\\\"mode\\\":2},{\\\"start\\\":358," +
@@ -220,7 +221,7 @@ public class XiaomiStepServiceImpl implements XiaomiStepService {
     }
 
     @Override
-    public boolean submitStep(UserLoginForm userLoginForm) {
+    public boolean submitStep(UserLoginForm userLoginForm,int step) {
         String accessCode = this.getAccessCode(
                 UserLoginForm.builder()
                         .username(userLoginForm.getUsername())
@@ -228,7 +229,7 @@ public class XiaomiStepServiceImpl implements XiaomiStepService {
                         .build());
         ResponseAccessCodeReverse loginReverse = this.login(accessCode);
         String appToken = this.getAppToken(loginReverse.getLoginToken());
-        return this.updateStep(appToken, loginReverse.getUserId());
+        return this.updateStep(appToken, loginReverse.getUserId(),step);
     }
 
 }
